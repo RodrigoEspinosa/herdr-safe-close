@@ -78,7 +78,9 @@ if [[ $mode == tab ]]; then
   [[ -n $id ]] || id=$(jq -r '.result.tabs[] | select(.focused) | .tab_id' <<<"$tabs")
   ws=$(jq -r --arg t "$id" '.result.tabs[] | select(.tab_id == $t) | .workspace_id' <<<"$tabs")
   siblings=$(jq --arg ws "$ws" '[.result.tabs[] | select(.workspace_id == $ws)] | length' <<<"$tabs")
-  panes=($("$herdr" pane list | jq -r --arg t "$id" '.result.panes[] | select(.tab_id == $t) | .pane_id'))
+  panes=()
+  while IFS= read -r p; do panes+=("$p"); done < <("$herdr" pane list \
+    | jq -r --arg t "$id" '.result.panes[] | select(.tab_id == $t) | .pane_id')
   reasons=$(busy_lines "${panes[@]}")
   if (( siblings <= 1 )); then
     reasons=$(printf '%s\n%s' "last tab — closing it closes the space" "$reasons")

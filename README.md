@@ -60,6 +60,15 @@ old bindings. Then run `herdr server reload-config`.
 `cmd` bindings need a terminal that passes Cmd through to herdr (for
 example, Ghostty with `keybind = clear`).
 
+## Development
+
+Link a local checkout instead of installing from GitHub, then run
+`shellcheck safe-close.sh` before sending changes:
+
+```bash
+herdr plugin link /path/to/herdr-safe-close
+```
+
 ## License
 
 MIT
