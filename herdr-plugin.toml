@@ -1,0 +1,24 @@
+id = "herdr-safe-close"
+name = "Herdr Safe Close"
+version = "0.1.0"
+min_herdr_version = "0.7.3"
+description = "Close the current tab or pane, but ask first when something is still running in it (an agent, a dev server, an editor...) or when it is the last tab in the space."
+platforms = ["linux", "macos"]
+
+[[actions]]
+id = "close-tab"
+title = "Safe Close: close tab (confirm if busy)"
+contexts = ["global"]
+command = ["bash", "safe-close.sh", "tab"]
+
+[[actions]]
+id = "close-pane"
+title = "Safe Close: close pane (confirm if busy)"
+contexts = ["global"]
+command = ["bash", "safe-close.sh", "pane"]
+
+[[panes]]
+id = "confirm"
+title = "close"
+placement = "popup"
+command = ["bash", "safe-close.sh", "confirm"]
